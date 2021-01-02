@@ -33,7 +33,7 @@ extra-deps:
 - casa-client-0.0.1@rev:0
 - casa-types-0.0.1@rev:0
 - git: https://github.com/fpclass/pantry
-  commit: 9c68fc83dd21d096dc60d885f59753c7a604fb31
+  commit: a16d69e95ab1135d449159183a86439f9a8029bc
 
 drop-packages:
 # See https://github.com/commercialhaskell/stack/pull/4712
