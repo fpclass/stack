@@ -274,10 +274,10 @@ loadCompilerPaths compiler build sandboxed = do
        compilerCacheGhcModified /= timeToInt64 (modificationTime compilerStatus))
       (throwString "Compiler file metadata mismatch, ignoring cache")
     globalDbStatus <- liftIO $ getFileStatus $ compilerCacheGlobalDb FP.</> "package.cache"
-    when
-      (compilerCacheGlobalDbCacheSize /= sizeToInt64 (fileSize globalDbStatus) ||
-       compilerCacheGlobalDbCacheModified /= timeToInt64 (modificationTime globalDbStatus))
-      (throwString "Global package cache file metadata mismatch, ignoring cache")
+    -- when
+    --   (compilerCacheGlobalDbCacheSize /= sizeToInt64 (fileSize globalDbStatus) ||
+    --    compilerCacheGlobalDbCacheModified /= timeToInt64 (modificationTime globalDbStatus))
+    --   (throwString "Global package cache file metadata mismatch, ignoring cache")
 
     -- We could use parseAbsFile instead of resolveFile' below to
     -- bypass some system calls, at the cost of some really wonky
