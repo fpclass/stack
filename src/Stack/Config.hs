@@ -124,15 +124,15 @@ tryDeprecatedPath mWarningDesc exists new old = do
 getImplicitGlobalProjectDir
     :: HasLogFunc env
     => Config -> RIO env (Path Abs Dir)
-getImplicitGlobalProjectDir config =
-    --TEST no warning printed
-    liftM fst $ tryDeprecatedPath
-        Nothing
-        doesDirExist
-        (implicitGlobalProjectDir stackRoot)
-        (implicitGlobalProjectDirDeprecated stackRoot)
-  where
-    stackRoot = view stackRootL config
+getImplicitGlobalProjectDir _ = 
+    getAppUserDataDir "global-stack-project"
+    -- liftM fst $ tryDeprecatedPath
+    --     Nothing
+    --     doesDirExist
+    --     (implicitGlobalProjectDir stackRoot)
+    --     (implicitGlobalProjectDirDeprecated stackRoot)
+--   where
+--     stackRoot = view stackRootL config
 
 -- | Download the 'Snapshots' value from stackage.org.
 getSnapshots :: HasConfig env => RIO env Snapshots
