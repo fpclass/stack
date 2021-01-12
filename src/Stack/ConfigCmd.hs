@@ -87,8 +87,8 @@ cfgCmdSetValue
     :: (HasConfig env, HasGHCVariant env)
     => Path Abs Dir -- ^ root directory of project
     -> ConfigCmdSet -> RIO env Yaml.Value
-cfgCmdSetValue root (ConfigCmdSetResolver newResolver) = do
-    newResolver' <- resolvePaths (Just root) newResolver
+cfgCmdSetValue root (ConfigCmdSetResolver _) = do
+    newResolver' <- resolvePaths (Just root) (ARResolver <$> parseRawSnapshotLocation "lts-16.27")
     concreteResolver <- makeConcreteResolver newResolver'
     -- Check that the snapshot actually exists
     void $ loadSnapshot =<< completeSnapshotLocation concreteResolver
