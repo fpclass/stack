@@ -154,13 +154,13 @@ loadTemplate name logIt = do
         downloadTemplate req (templateDir </> rel)
     downloadTemplate :: Request -> Path Abs File -> RIO env Text
     downloadTemplate req path = do
-        let dReq = setForceDownload True $ mkDownloadRequest req
-        logIt RemoteTemp
-        catch
-          (void $ do
-            verifiedDownloadWithProgress dReq path (T.pack $ toFilePath path) Nothing
-          )
-          (useCachedVersionOrThrow path)
+        -- let dReq = setForceDownload True $ mkDownloadRequest req
+        logIt LocalTemp
+        -- catch
+        --   (void $ do
+        --     verifiedDownloadWithProgress dReq path (T.pack $ toFilePath path) Nothing
+        --   )
+        --   (useCachedVersionOrThrow path)
 
         loadLocalFile path
     useCachedVersionOrThrow :: Path Abs File -> VerifiedDownloadException -> RIO env ()
