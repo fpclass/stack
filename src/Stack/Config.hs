@@ -549,11 +549,13 @@ withBuildConfig inner = do
       PCGlobalProject -> do
             logDebug "Run from outside a project, using implicit global project config"
             destDir <- getImplicitGlobalProjectDir config
+            let Just srcFile = parseAbsFile "/modules/cs141/2021/.stack/global-project/stack.yaml" 
             let dest :: Path Abs File
                 dest = destDir </> stackDotYaml
                 dest' :: FilePath
                 dest' = toFilePath dest
             ensureDir destDir
+            copyFile srcFile dest
             exists <- doesFileExist dest
             if exists
                then do
@@ -570,6 +572,7 @@ withBuildConfig inner = do
                            Just _ -> return ()
                    return (project, dest)
                else do
+                   logInfo ("TO MICHAEL: IF YOU SEE THIS IN A STUDENT'S SCREENSHOT, SOMETHING BAD HAS HAPPENED")
                    logInfo ("Writing implicit global project config file to: " <> fromString dest')
                    logInfo "Note: You can change the snapshot via the resolver field there."
                    p <- getEmptyProject mresolver []
